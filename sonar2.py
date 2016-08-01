@@ -7,7 +7,7 @@ import pygame.mixer
 #pygame.mixer.pre_init(44100, 16, 2, 4096) #frequency, size, channels, buffersize
 #pygame.init()
 pygame.mixer.init()
-pygame.mixer.music.load("pleasehold1.ogg")
+pygame.mixer.music.load("/home/pi/pleasehold1.ogg")
 #pygame.mixer.music.stop()
 #pygame.mixer.music.set_volume(0)
 GPIO.setmode(GPIO.BCM)                     #Set GPIO pin numbering 
