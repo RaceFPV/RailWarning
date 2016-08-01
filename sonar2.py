@@ -3,13 +3,13 @@
 
 import RPi.GPIO as GPIO                    #Import GPIO library
 import time                                #Import time library
-import pygame
+import pygame.mixer
 #pygame.mixer.pre_init(44100, 16, 2, 4096) #frequency, size, channels, buffersize
 #pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load("pleasehold1.ogg")
-pygame.mixer.music.stop()
-pygame.mixer.music.set_volume(0)
+#pygame.mixer.music.stop()
+#pygame.mixer.music.set_volume(0)
 GPIO.setmode(GPIO.BCM)                     #Set GPIO pin numbering 
 
 TRIG = 21                                  #Associate pin 21 to TRIG
@@ -35,22 +35,30 @@ while True:
 
   while GPIO.input(ECHO)==1:               #Check whether the ECHO is HIGH
     pulse_end = time.time()                #Saves the last known time of HIGH pulse 
+    if pulse_end - pulse_start > 0.5:
+      break;
 
   pulse_duration = pulse_end - pulse_start #Get pulse duration to a variable
 
   distance = pulse_duration * 17150        #Multiply pulse duration by 17150 to get distance
-  distance = round(distance, 2)            #Round to two decimal points
+  distance = round(distance)            #Round to two decimal points
 
-  if distance > 2:      #Check whether the distance is within range
+  if distance is None or distance < 2 or distance > 400:
+    print "out of range"
+    distance = 0
+    pygame.mixer.music.play()
+    print "Playing audio clip"
+    while pygame.mixer.music.get_busy() == True:
+      continue
+    time.sleep(2)
+  else:
     print "Distance:",distance - 0.5,"cm"  #Print distance with 0.5 cm calibration
-    if distance > 100:
+    if distance > 50:
       pygame.mixer.music.play()
       print "Playing audio clip"
-      pygame.mixer.music.set_volume(1)
+      #pygame.mixer.music.set_volume(1)
       while pygame.mixer.music.get_busy() == True:      
         continue
-      pygame.mixer.music.stop()
-      pygame.mixer.music.set_volume(0)
-      time.sleep(2.5)
-  else:
-    print "Out Of Range"                   #display out of range
+      #pygame.mixer.music.stop()
+      #pygame.mixer.music.set_volume(0)
+      time.sleep(2)
