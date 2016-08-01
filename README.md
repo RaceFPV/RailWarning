@@ -16,6 +16,9 @@
 * Connect your speaker to the pi via the 3.5mm audio jack
 * Run sonar2.py, be sure to keep the audio .ogg file in the same folder as sonar2.py
 
+###Run on boot:
+* Insert (sleep 10;python /home/pi/sonar2.py)&  into /etc/rc.local just before exit 0
+* Where /home/pi/ is the directory you have the sonar2 script located
 
 ##Running:
 * The pi will continuously scan via the sonar sensor for distance changes
