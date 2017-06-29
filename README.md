@@ -14,6 +14,8 @@
 * Connect your speaker to the pi via the 3.5mm audio jack
 * Run motion.py, be sure to keep the audio .ogg file in the same folder as motion.py
 
+![alt text](https://github.com/slacker87/RailWarning/raw/master/handrail-wiring.png)
+
 #### Run on boot:
 * Insert (sleep 10;python /home/pi/motion.py)&  into /etc/rc.local just before exit 0
 * Where /home/pi/ is the directory you have the motion script located
